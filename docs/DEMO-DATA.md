@@ -1,6 +1,6 @@
 # See data flowing through SolarSaathi
 
-Keep MongoDB and the app running in their two PowerShell windows, then run this in a third window:
+Start everything with `npm.cmd run dev` and leave that PowerShell window open. Run this in a second window:
 
 ```powershell
 npm.cmd run db:demo

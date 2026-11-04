@@ -1,15 +1,19 @@
-import tseslint from 'typescript-eslint';
-export default tseslint.config(
+import js from '@eslint/js';
+import globals from 'globals';
+
+export default [
   {
     ignores: ['node_modules/**', 'dist/**', '.local/**', 'test-results/**', 'playwright-report/**'],
   },
-  ...tseslint.configs.recommended,
+  js.configs.recommended,
   {
-    rules: {
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/no-namespace': 'off',
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-empty-object-type': 'error',
+    files: ['**/*.{js,jsx}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      parserOptions: { ecmaFeatures: { jsx: true } },
+      globals: { ...globals.browser, ...globals.node },
     },
+    rules: { 'no-unused-vars': 'off', 'no-empty': ['error', { allowEmptyCatch: true }] },
   },
-);
+];

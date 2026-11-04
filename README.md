@@ -1,30 +1,24 @@
 # SolarSaathi
 
-A working local draft of the Maharashtra rooftop-solar planning platform in the supplied PRD. It uses React, TypeScript, FLOWSTACK Brick 0.3.0, Vite, Express, Zod and a pure shared calculation engine.
+A local Maharashtra rooftop-solar planning platform built with **MERN and JavaScript**: MongoDB, Express, React and Node.js. React pages use `.jsx`; the API, models, shared calculator and scripts use `.js`. Vite and FLOWSTACK Brick 0.3.0 provide frontend tooling and components.
 
 This is a **local development draft**, not a production release. Its capacity policy, tariff, yield, installation-cost and carbon assumptions are deliberately labelled as unverified. Do not use its economics as a purchase recommendation.
 
 ## Start the app (Windows)
 
-**This computer is already set up.** Open two PowerShell windows in the `SolarSaathiProj` folder.
-
-**Window 1 — start MongoDB and leave it running:**
-
-```powershell
-npm.cmd run db:local
-```
-
-**Window 2 — start the app and leave it running:**
+**This computer is already set up.** Open PowerShell in the `SolarSaathiProj` folder:
 
 ```powershell
 npm.cmd run dev
 ```
 
+This starts the project MongoDB, Express backend and React frontend together. Keep the window open.
+
 Open **[http://127.0.0.1:5173](http://127.0.0.1:5173)** in your browser.
 
 To log in, enter an Indian mobile number and use the development code shown on the login page. No SMS is sent.
 
-To stop, press **Ctrl+C** in Window 2, then Window 1.
+To stop, press **Ctrl+C**. Your saved database remains in `.local/mongodb`.
 
 ### First-time setup on another Windows computer
 
@@ -35,14 +29,7 @@ To stop, press **Ctrl+C** in Window 2, then Window 1.
    npm.cmd install
    ```
 
-3. If `.env.development` is missing, create it in the project folder with these two lines:
-
-   ```dotenv
-   DATA_DRIVER=mongo
-   MONGODB_URI=mongodb://127.0.0.1:27018/SOLARSAATHIDB?directConnection=true&replicaSet=solarsaathi-rs
-   ```
-
-4. Follow the two-window start instructions above. The app creates its starter data and local secrets automatically.
+3. Run `npm.cmd run dev`, then open the browser link above. Missing configuration, local secrets, database collections and staff accounts are created automatically. The launcher finds MongoDB Server under `C:\Program Files\MongoDB\Server` or uses `MONGOD_BINARY` if you set that environment variable.
 
 MongoDB stores this project's data in `.local/mongodb`. For more setup details, see [the database guide](docs/DATABASE.md).
 
@@ -58,7 +45,7 @@ The labelled example household is created only when requested. The app does not 
 
 ### Show demo data in Compass
 
-With MongoDB and the app running, run `npm.cmd run db:demo` in a third PowerShell window. It adds a labelled demo user, a Pune household, 12 bills, a solar result and an application through the API, then verifies the stored documents.
+With the app running, run `npm.cmd run db:demo` in a second PowerShell window. It adds a labelled demo user, a Pune household, 12 bills, a solar result and an application through the API, then verifies the stored documents. Wait 30 seconds between demo logins because of the OTP cooldown.
 
 In Compass, open **SolarSaathi Project (27018) → SOLARSAATHIDB**. Log in to the app as **9999999990** to see the same **DEMO — Pune Solar Home** records. [Follow the data step by step](docs/DEMO-DATA.md).
 
@@ -77,13 +64,13 @@ In Compass, open **SolarSaathi Project (27018) → SOLARSAATHIDB**. Log in to th
 
 ## MongoDB mode
 
-The current Windows setup uses the installed MongoDB Server executable. Keep the database running in one PowerShell window:
+The default startup uses the installed MongoDB Server executable on project port **27018**. `npm.cmd run dev` manages it automatically. You can also start only the database:
 
 ```powershell
 npm.cmd run db:local
 ```
 
-In another PowerShell window, run `npm.cmd run dev`. The local database helper starts or recognises only the project instance on port 27018; it does not reconfigure the existing server on port 27017. For Compass, use:
+The local database helper starts or recognises only the project instance on port 27018. For Compass, use:
 
 ```text
 mongodb://127.0.0.1:27018/SOLARSAATHIDB?replicaSet=solarsaathi-rs
@@ -93,8 +80,8 @@ If using Docker on another machine instead:
 
 ```powershell
 docker compose up -d
-Copy-Item .env.example .env.development
-# Set DATA_DRIVER=mongo in .env.development.
+# In .env.development, use this Docker URI before starting the app:
+# MONGODB_URI=mongodb://127.0.0.1:27017/SOLARSAATHIDB?directConnection=true&replicaSet=rs0
 npm.cmd run db:seed
 npm.cmd run dev
 ```
@@ -107,22 +94,24 @@ MongoDB connection, transaction-based import, collection/index setup and the run
 
 | PowerShell command            | Purpose                                                               |
 | ----------------------------- | --------------------------------------------------------------------- |
-| `npm.cmd run dev`             | API and web with reload                                               |
+| `npm.cmd run dev`             | Start MongoDB, API and React; frontend changes reload automatically    |
 | `npm.cmd run db:seed`         | Preserve data and add missing local staff accounts                    |
 | `npm.cmd run db:local`        | Start the isolated MongoDB replica set on port 27018                  |
 | `npm.cmd run db:status`       | Check MongoDB reachability, replica-set name and collections          |
 | `npm.cmd run db:migrate-json` | Import JSON records into an empty Mongo app database, preserving JSON |
 | `npm.cmd run db:indexes`      | Initialise the selected repository and indexes                        |
-| `npm.cmd run typecheck`       | Strict TypeScript check                                               |
-| `npm.cmd run lint`            | ESLint checks, including a ban on explicit `any`                      |
+| `npm.cmd run check`           | JavaScript and JSX ESLint checks                                     |
+| `npm.cmd run lint`            | Run ESLint directly                                                  |
 | `npm.cmd test`                | Engine golden cases and API/auth/ownership tests                      |
 | `npm.cmd run test:e2e`        | Chrome desktop and mobile browser flows                               |
-| `npm.cmd run build`           | Typecheck and production asset build                                  |
-| `npm.cmd start`               | Serve the built assets and API at `127.0.0.1:4000` in local mode      |
+| `npm.cmd run build`           | Build React assets                                                   |
+| `npm.cmd start`               | Start MongoDB and serve built React + API at `127.0.0.1:4000` locally |
 | `npm.cmd run hero:frames`     | Regenerate the development WebP sequence                              |
 | `npm.cmd run format`          | Format source and configuration                                       |
 
 For the browser tests, Chrome must be installed. The test configuration can use `channel: 'msedge'` if only Edge is available. Tests use synthetic local records. Generated screenshots and traces are ignored under `test-results/`.
+
+Restart `npm.cmd run dev` after backend edits. For separate development windows, use `db:local`, `dev:api` and `dev:web` instead.
 
 ## Known draft boundaries
 
