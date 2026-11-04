@@ -4,23 +4,47 @@ A working local draft of the Maharashtra rooftop-solar planning platform in the 
 
 This is a **local development draft**, not a production release. Its capacity policy, tariff, yield, installation-cost and carbon assumptions are deliberately labelled as unverified. Do not use its economics as a purchase recommendation.
 
-## Run in PowerShell
+## Start the app (Windows)
 
-Node 20.19 or later is required. From this folder:
+**This computer is already set up.** Open two PowerShell windows in the `SolarSaathiProj` folder.
+
+**Window 1 — start MongoDB and leave it running:**
 
 ```powershell
-npm.cmd install
-npm.cmd run db:seed
+npm.cmd run db:local
+```
+
+**Window 2 — start the app and leave it running:**
+
+```powershell
 npm.cmd run dev
 ```
 
-Open [SolarSaathi locally](http://127.0.0.1:5173). The API listens on `127.0.0.1:4000`; Vite proxies `/api`. Both bind to loopback. No cloud account is needed.
+Open **[http://127.0.0.1:5173](http://127.0.0.1:5173)** in your browser.
 
-Dependencies have already been installed in this workspace. Starter data and local secrets are created automatically on first start. Seeding is idempotent and preserves existing data.
+To log in, enter an Indian mobile number and use the development code shown on the login page. No SMS is sent.
 
-This workspace is now configured for MongoDB in the ignored `.env.development` file. The project-local replica set runs on `127.0.0.1:27018`, database `SOLARSAATHIDB`, with its files under `.local/mongodb`. Existing JSON records were imported transactionally, and `.local/data.json` was retained.
+To stop, press **Ctrl+C** in Window 2, then Window 1.
 
-Without an environment file, a clean checkout defaults to the JSON development driver. That driver supports **one local API process only**; it is not a production or multi-process database.
+### First-time setup on another Windows computer
+
+1. Install **Node.js 20.19 or later** and **MongoDB Community Server**. Compass alone is not the server.
+2. Open the project folder in PowerShell and run:
+
+   ```powershell
+   npm.cmd install
+   ```
+
+3. If `.env.development` is missing, create it in the project folder with these two lines:
+
+   ```dotenv
+   DATA_DRIVER=mongo
+   MONGODB_URI=mongodb://127.0.0.1:27018/SOLARSAATHIDB?directConnection=true&replicaSet=solarsaathi-rs
+   ```
+
+4. Follow the two-window start instructions above. The app creates its starter data and local secrets automatically.
+
+MongoDB stores this project's data in `.local/mongodb`. For more setup details, see [the database guide](docs/DATABASE.md).
 
 ## Try the draft
 
