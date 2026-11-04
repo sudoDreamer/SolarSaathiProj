@@ -18,6 +18,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "db:seed": "tsx scripts/seed.ts",
+    "db:demo": "tsx scripts/demo-data.ts",
     "db:status": "tsx scripts/db-status.ts",
     "db:local": "tsx scripts/local-mongo.ts",
     "db:migrate-json": "tsx scripts/migrate-json.ts",

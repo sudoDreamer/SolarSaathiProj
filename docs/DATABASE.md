@@ -13,7 +13,7 @@ MongoDB uses **collections**, **documents** and **embedded documents**, rather t
 The app is now connected to the **project replica set on port 27018**. In Compass, add a connection using this exact URI:
 
 ```text
-mongodb://127.0.0.1:27018/SOLARSAATHIDB?directConnection=true&replicaSet=solarsaathi-rs
+mongodb://127.0.0.1:27018/SOLARSAATHIDB?replicaSet=solarsaathi-rs
 ```
 
 Open `SOLARSAATHIDB` there to see the app collections. The database previously created on port 27017 belongs to the original standalone server; that server and its `projectdb` collection were not modified.

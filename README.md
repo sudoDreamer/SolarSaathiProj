@@ -56,6 +56,12 @@ MongoDB stores this project's data in `.local/mongodb`. For more setup details, 
 
 The labelled example household is created only when requested. The app does not seed fake bill history into new accounts.
 
+### Show demo data in Compass
+
+With MongoDB and the app running, run `npm.cmd run db:demo` in a third PowerShell window. It adds a labelled demo user, a Pune household, 12 bills, a solar result and an application through the API, then verifies the stored documents.
+
+In Compass, open **SolarSaathi Project (27018) → SOLARSAATHIDB**. Log in to the app as **9999999990** to see the same **DEMO — Pune Solar Home** records. [Follow the data step by step](docs/DEMO-DATA.md).
+
 ## What works
 
 - Scroll-driven night-to-day canvas sequence, with optimised generated development frames, manifest-based loading, static poster, reduced-motion path and keyboard skip.
@@ -80,7 +86,7 @@ npm.cmd run db:local
 In another PowerShell window, run `npm.cmd run dev`. The local database helper starts or recognises only the project instance on port 27018; it does not reconfigure the existing server on port 27017. For Compass, use:
 
 ```text
-mongodb://127.0.0.1:27018/SOLARSAATHIDB?directConnection=true&replicaSet=solarsaathi-rs
+mongodb://127.0.0.1:27018/SOLARSAATHIDB?replicaSet=solarsaathi-rs
 ```
 
 If using Docker on another machine instead:
