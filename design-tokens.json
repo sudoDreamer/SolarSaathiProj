@@ -1,0 +1,35 @@
+{
+  "font": { "display": "Fraunces", "body": "Inter" },
+  "color": {
+    "ink900": "#0B1330",
+    "ink700": "#1B2552",
+    "night": "#050A1F",
+    "dawn400": "#F5A524",
+    "saffron500": "#FF8A1F",
+    "cream50": "#FFF8EC",
+    "sand200": "#F1E4CC",
+    "text900": "#14172B",
+    "text600": "#5A5F7A",
+    "savings500": "#1E9E6A",
+    "warn500": "#D9822B",
+    "risk500": "#C73E3E",
+    "info": "#2A7DE1",
+    "goldenTeal": "#0F5C63"
+  },
+  "scene": {
+    "dawn": ["#1B2552", "#6A3D7C", "#F08A5D", "#FFD6A0"],
+    "fullSun": ["#FFF3D6", "#FFE3A3", "#CFE8FF"],
+    "golden": ["#FFE9C7", "#FFC27A", "#E8895A"],
+    "clear": ["#F4FAFF", "#E6F2FF", "#FFF8EC"],
+    "admin": "#10131C"
+  },
+  "glass": {
+    "dark": "rgba(255,255,255,0.10)",
+    "light": "rgba(255,255,255,0.58)",
+    "blur": "18px",
+    "border": "rgba(255,255,255,0.28)"
+  },
+  "spacingBasePx": 4,
+  "radiusPx": 12,
+  "motionMs": 240
+}

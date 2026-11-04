@@ -1,0 +1,66 @@
+{
+  "rule": {
+    "id": "capacity-demo-v1",
+    "version": 1,
+    "capFactor": 1,
+    "genUnitsPerKwMonth": 150,
+    "sqMPerKw": 10,
+    "capacityTolerancePct": 0,
+    "deemedApprovalMaxKw": 10,
+    "enforcementStatus": "UNDER_REVIEW",
+    "plainLanguageSummary": "The PRD reports a consumption-linked capacity cap. Its current enforcement and exact formula have not been verified. Both sizing paths are shown for planning.",
+    "sourceUrl": "https://portal.mahadiscom.in/ismart/",
+    "verifiedOn": null,
+    "effectiveFrom": "2026-11-04",
+    "verified": false
+  },
+  "tariff": {
+    "id": "tariff-illustrative-v1",
+    "version": 1,
+    "slabs": [
+      { "upTo": 100, "rate": 4 },
+      { "upTo": 300, "rate": 8 },
+      { "upTo": 500, "rate": 11 },
+      { "upTo": null, "rate": 13 }
+    ],
+    "fixedChargeInr": 130,
+    "wheelingRateInrPerKwh": 1,
+    "facInrPerKwh": 0,
+    "dutyPct": 16,
+    "surplusRateInrPerKwh": 0,
+    "sourceUrl": "https://merc.gov.in/",
+    "verified": false,
+    "verifiedOn": null
+  },
+  "subsidy": {
+    "id": "pmsg-cfa-v1",
+    "version": 1,
+    "tiers": [
+      { "upToKw": 2, "inrPerKw": 30000 },
+      { "upToKw": 3, "inrPerKw": 18000 }
+    ],
+    "maxSubsidyInr": 78000,
+    "eligibleCategories": ["LT_RESIDENTIAL"],
+    "sourceUrl": "https://latur.gov.in/en/scheme/pm-surya-ghar-muft-bijli/",
+    "verifiedOn": "2026-11-04"
+  },
+  "yields": {
+    "PUNE": [140, 145, 165, 165, 160, 115, 100, 105, 125, 145, 140, 135],
+    "MUMBAI": [135, 140, 155, 155, 145, 95, 80, 90, 110, 140, 135, 130],
+    "THANE": [135, 140, 155, 155, 145, 95, 80, 90, 110, 140, 135, 130],
+    "NASHIK": [145, 150, 170, 170, 165, 120, 105, 110, 130, 150, 145, 140],
+    "NAGPUR": [140, 150, 170, 175, 170, 120, 100, 105, 130, 150, 140, 135],
+    "KOLHAPUR": [135, 140, 155, 150, 140, 95, 80, 90, 110, 135, 135, 130],
+    "SAMBHAJINAGAR": [145, 150, 170, 170, 165, 120, 105, 110, 130, 150, 145, 140],
+    "SOLAPUR": [145, 150, 170, 175, 165, 120, 110, 115, 135, 155, 145, 140]
+  },
+  "economics": {
+    "benchmarkPerKwInr": 55000,
+    "annualDegradationPct": 0.5,
+    "inverterReplacementYear": 12,
+    "inverterReplacementPerKwInr": 6000,
+    "co2KgPerKwh": 0.7,
+    "co2SourceUrl": "https://cea.nic.in/cdm-co2-baseline-database/",
+    "verified": false
+  }
+}
